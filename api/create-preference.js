@@ -18,7 +18,7 @@ export default async function handler(req, res) {
           title: item.name,
           unit_price: Number(item.price),
           quantity: 1,
-          currency_id: 'ARS' // Cambiar a USD si la cuenta lo permite
+          currency_id: 'ARS'
         })),
         payer: {
           name: userData.name,
@@ -30,7 +30,7 @@ export default async function handler(req, res) {
           pending: `${process.env.BASE_URL}/productos`,
         },
         auto_return: 'approved',
-        notification_url: `https://tu-dominio.vercel.app/api/webhook`, // IMPORTANTE: Debe ser una URL pública
+        notification_url: `${process.env.BASE_URL}/api/webhook`,
         metadata: {
           user_email: userData.email,
           product_names: items.map(i => i.name).join(', ')
@@ -40,7 +40,11 @@ export default async function handler(req, res) {
 
     return res.status(200).json({ id: response.id, init_point: response.init_point });
   } catch (error) {
-    console.error('Error creating preference:', error);
-    return res.status(500).json({ error: 'Internal Server Error' });
+    console.error('MP Preference Error Details:', error);
+    return res.status(500).json({ 
+      error: 'Error al crear la preferencia', 
+      details: error.message,
+      cause: error.cause 
+    });
   }
 }
