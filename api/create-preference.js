@@ -9,6 +9,11 @@ export default async function handler(req, res) {
 
   try {
     const { items, userData } = req.body;
+    
+    // Si BASE_URL no está definido, intentamos construirlo desde el request
+    const protocol = req.headers['x-forwarded-proto'] || 'http';
+    const host = req.headers.host;
+    const baseUrl = process.env.BASE_URL || `${protocol}://${host}`;
 
     const preference = new Preference(client);
     const response = await preference.create({
@@ -19,22 +24,27 @@ export default async function handler(req, res) {
           quantity: 1,
           currency_id: 'ARS'
         })),
-        back_urls: {
-          success: `${process.env.BASE_URL}/success`,
-          failure: `${process.env.BASE_URL}/productos`,
-          pending: `${process.env.BASE_URL}/productos`,
+        payer: {
+          name: userData.name,
+          email: userData.email,
         },
-        auto_return: 'approved'
+        back_urls: {
+          success: `${baseUrl}/success`,
+          failure: `${baseUrl}/productos`,
+          pending: `${baseUrl}/productos`,
+        },
+        auto_return: 'approved',
+        notification_url: `${baseUrl}/api/webhook`,
+        metadata: {
+          user_email: userData.email,
+          product_names: items.map(i => i.name).join(', ')
+        }
       }
     });
 
     return res.status(200).json({ id: response.id, init_point: response.init_point });
   } catch (error) {
-    console.error('MP Preference Error Details:', error);
-    return res.status(500).json({ 
-      error: 'Error al crear la preferencia', 
-      details: error.message,
-      cause: error.cause 
-    });
+    console.error('Error:', error);
+    return res.status(500).json({ error: error.message });
   }
 }
