@@ -14,27 +14,17 @@ export default async function handler(req, res) {
     const response = await preference.create({
       body: {
         items: items.map(item => ({
-          id: item.id.toString(),
           title: item.name,
           unit_price: Number(item.price),
           quantity: 1,
           currency_id: 'ARS'
         })),
-        payer: {
-          name: userData.name,
-          email: userData.email,
-        },
         back_urls: {
           success: `${process.env.BASE_URL}/success`,
           failure: `${process.env.BASE_URL}/productos`,
           pending: `${process.env.BASE_URL}/productos`,
         },
-        auto_return: 'approved',
-        notification_url: `${process.env.BASE_URL}/api/webhook`,
-        metadata: {
-          user_email: userData.email,
-          product_names: items.map(i => i.name).join(', ')
-        }
+        auto_return: 'approved'
       }
     });
 
