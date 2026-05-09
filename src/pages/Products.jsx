@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 
@@ -61,18 +62,18 @@ const Products = () => {
   ];
 
   return (
-    <main className="pt-32 pb-24 min-h-screen hero-gradient">
+    <main className="pt-28 md:pt-32 pb-24 min-h-screen hero-gradient">
       {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-12 mb-10">
+      <section className="max-w-7xl mx-auto px-6 md:px-12 mb-10 md:mb-16">
         <div className="flex flex-col gap-2 max-w-3xl">
-          <span className="text-primary font-bold tracking-widest text-xs uppercase mb-2">
+          <span className="text-primary font-bold tracking-widest text-[10px] md:text-xs uppercase mb-2">
             PRODUCTOS INSTITUCIONALES
           </span>
-          <h1 className="text-5xl font-bold text-white mb-6 leading-tight">
+          <h1 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
             Herramientas de Precisión para el Éxito Financiero
           </h1>
-          <p className="text-lg text-slate-400 max-w-2xl leading-relaxed">
-            Acceda a nuestra suite exclusiva de plantillas Excel diseñadas para
+          <p className="text-base md:text-lg text-slate-400 max-w-2xl leading-relaxed">
+            Acceda a nuestra suite exclusiva de plantillas de Google Sheets diseñadas para
             la gestión de activos de alto nivel, análisis de riesgo y
             proyecciones macroeconómicas.
           </p>
@@ -80,7 +81,7 @@ const Products = () => {
       </section>
 
       {/* Uniform Grid Catalog */}
-      <section className="max-w-7xl mx-auto px-12">
+      <section className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {products.map((product) => (
             <Link
@@ -133,29 +134,56 @@ const Products = () => {
           ))}
         </div>
       </section>
+      {/* FAQ Section */}
+      <section className="max-w-4xl mx-auto px-6 md:px-12 mt-24 pb-12">
+        <div className="text-center mb-12">
+          <span className="text-primary font-bold tracking-widest text-[10px] uppercase mb-2 block">Soporte y Consultas</span>
+          <h2 className="text-3xl font-bold text-white">Preguntas Frecuentes</h2>
+        </div>
 
-      {/* Newsletter / CTA */}
-      <section className="max-w-7xl mx-auto px-12 mt-24">
-        <div className="glass-panel rounded-2xl p-12 flex flex-col md:flex-row items-center justify-between border border-white/5 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
-          <div className="max-w-xl text-center md:text-left mb-8 md:mb-0 relative z-10">
-            <h2 className="text-3xl font-bold text-white mb-3">
-              ¿Necesita una solución a medida?
-            </h2>
-            <p className="text-slate-400">
-              Desarrollamos modelos financieros personalizados para necesidades
-              institucionales específicas.
-            </p>
-          </div>
-          <Link
-            to="/contacto"
-            className="bg-white text-slate-950 px-10 py-4 rounded-xl font-bold hover:bg-slate-200 transition-all uppercase tracking-widest text-xs relative z-10 shadow-xl shadow-white/5"
-          >
-            CONTACTAR CON UN CONSULTOR
-          </Link>
+        <div className="space-y-4">
+          <FAQItem 
+            question="¿Cómo recibo mi producto tras la compra?" 
+            answer="El proceso es 100% automatizado. Una vez confirmado el pago, recibirá un correo electrónico instantáneo con el enlace de descarga directa y su licencia de uso institucional."
+          />
+          <FAQItem 
+            question="¿Cuál es la política de reembolsos?" 
+            answer="Debido a la naturaleza digital de nuestros productos (archivos descargables de acceso inmediato), no se realizan reembolsos una vez que el enlace de descarga ha sido generado o enviado. Le recomendamos revisar detalladamente las especificaciones de cada herramienta antes de completar su adquisición."
+          />
+          <FAQItem 
+            question="¿Las plantillas son compatibles con Microsoft Excel?" 
+            answer="Nuestras herramientas están optimizadas específicamente para Google Sheets para aprovechar el potencial de la computación en la nube y la colaboración en tiempo real. La exportación a Microsoft Excel es posible, aunque algunas funciones avanzadas podrían requerir ajustes manuales."
+          />
+          <FAQItem 
+            question="¿Ofrecen soporte técnico post-venta?" 
+            answer="Sí, todos nuestros productos incluyen soporte técnico prioritario durante los primeros 30 días para resolver cualquier duda sobre la implementación o funcionamiento del modelo en su entorno corporativo."
+          />
         </div>
       </section>
     </main>
+  );
+};
+
+const FAQItem = ({ question, answer }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="glass-panel rounded-xl border border-white/5 overflow-hidden transition-all duration-300">
+      <button 
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full p-6 text-left flex justify-between items-center hover:bg-white/5 transition-colors"
+      >
+        <span className="text-white font-bold text-sm md:text-base pr-4">{question}</span>
+        <span className={`material-symbols-outlined text-primary transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
+          expand_more
+        </span>
+      </button>
+      <div className={`transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+        <div className="p-6 pt-0 text-slate-400 text-sm leading-relaxed border-t border-white/5">
+          {answer}
+        </div>
+      </div>
+    </div>
   );
 };
 

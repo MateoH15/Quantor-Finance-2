@@ -4,29 +4,36 @@ import TradingViewCalendar from '../components/TradingViewCalendar';
 
 const EconomicCalendar = () => {
   return (
-    <div className="pt-32 pb-24 min-h-screen hero-gradient">
-      <header className="max-w-7xl mx-auto px-12 mb-12">
+    <div className="pt-28 md:pt-32 pb-24 min-h-screen hero-gradient">
+      <header className="w-full px-6 md:px-12 mb-10 md:mb-12">
         <div className="flex items-center gap-2 mb-4">
           <div className="w-12 h-[1px] bg-primary"></div>
-          <span className="font-label-caps text-primary uppercase text-xs font-bold tracking-widest">Macroeconomic Data</span>
+          <span className="font-label-caps text-primary uppercase text-[10px] md:text-xs font-bold tracking-widest">
+            Macroeconomic Data
+          </span>
         </div>
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
-            <h1 className="text-display-lg font-display-lg text-on-surface text-5xl font-bold mb-4">Calendario Económico</h1>
-            <p className="max-w-2xl text-on-surface-variant text-slate-400 text-lg">
-              Monitoreo en tiempo real de los eventos financieros y anuncios de política monetaria que mueven los mercados globales.
+            <h1 className="text-3xl md:text-5xl font-display-lg text-on-surface font-bold mb-4">
+              Calendario Económico
+            </h1>
+            <p className="max-w-3xl text-on-surface-variant text-slate-400 text-base md:text-lg">
+              Monitoreo en tiempo real de los eventos financieros y anuncios de
+              política monetaria que mueven los mercados globales.
             </p>
           </div>
           <div className="hidden lg:block">
             <div className="glass-panel px-6 py-3 rounded-full flex items-center gap-3 border border-white/10">
               <div className="w-2 h-2 rounded-full bg-success animate-pulse"></div>
-              <span className="text-xs font-bold uppercase tracking-widest text-slate-300">Live Data Feed</span>
+              <span className="text-xs font-bold uppercase tracking-widest text-slate-300">
+                Live Data Feed
+              </span>
             </div>
           </div>
         </div>
       </header>
-      
-      <div className="max-w-7xl mx-auto px-12">
+
+      <div className="w-full px-6 md:px-12">
         <div className="glass-panel p-6 rounded-2xl border border-white/5 shadow-2xl overflow-hidden">
           <TradingViewCalendar />
         </div>

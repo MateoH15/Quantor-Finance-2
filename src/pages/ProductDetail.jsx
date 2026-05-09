@@ -68,34 +68,41 @@ const ProductDetail = () => {
   }
 
   return (
-    <div className="pt-32 pb-24 min-h-screen hero-gradient">
-      <div className="max-w-7xl mx-auto px-12">
-        <Link to="/productos" className="flex items-center gap-2 text-slate-400 hover:text-primary transition-colors mb-12 group">
+    <div className="pt-28 md:pt-32 pb-24 min-h-screen hero-gradient">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <Link 
+          to="/productos" 
+          className="flex items-center gap-2 text-slate-400 hover:text-primary transition-colors mb-8 md:mb-12 group"
+        >
           <span className="material-symbols-outlined transform group-hover:-translate-x-1 transition-transform">arrow_back</span>
-          <span className="text-xs font-bold uppercase tracking-widest">Volver al catálogo</span>
+          <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest">Volver al catálogo</span>
         </Link>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           {/* Product Image & Specs */}
-          <div className="glass-panel p-8 rounded-2xl border border-white/5 shadow-2xl overflow-hidden">
-            <img src={product.image} alt={product.name} className="w-full h-[400px] object-cover rounded-xl mb-8" />
+          <div className="glass-panel p-6 md:p-8 rounded-2xl border border-white/5 shadow-2xl overflow-hidden order-2 lg:order-1">
+            <img 
+              src={product.image} 
+              alt={product.name} 
+              className="w-full h-64 md:h-[400px] object-cover rounded-xl mb-6 md:mb-8" 
+            />
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-white/5 p-4 rounded-lg border border-white/5">
                 <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-1">Formato</span>
-                <span className="text-white font-bold">Excel / VBA</span>
+                <span className="text-white font-bold text-sm md:text-base">Excel / VBA</span>
               </div>
               <div className="bg-white/5 p-4 rounded-lg border border-white/5">
                 <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-1">Versión</span>
-                <span className="text-white font-bold">2024.1.0</span>
+                <span className="text-white font-bold text-sm md:text-base">2024.1.0</span>
               </div>
             </div>
           </div>
 
           {/* Product Content */}
-          <div className="flex flex-col">
-            <span className="text-primary font-bold text-xs uppercase tracking-widest mb-4">Herramienta Institucional</span>
-            <h1 className="text-5xl font-bold text-white mb-6 leading-tight">{product.name}</h1>
-            <p className="text-xl text-slate-400 mb-8 leading-relaxed">
+          <div className="flex flex-col order-1 lg:order-2">
+            <span className="text-primary font-bold text-[10px] md:text-xs uppercase tracking-widest mb-4">Herramienta Institucional</span>
+            <h1 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">{product.name}</h1>
+            <p className="text-lg md:text-xl text-slate-400 mb-8 leading-relaxed">
               {product.longDescription}
             </p>
 
@@ -111,14 +118,14 @@ const ProductDetail = () => {
               </ul>
             </div>
 
-            <div className="glass-panel p-8 rounded-2xl border border-primary/20 bg-primary/5 flex flex-col md:flex-row items-center justify-between gap-8 mt-auto">
-              <div className="flex flex-col">
-                <span className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Inversión</span>
-                <span className="text-4xl font-bold text-primary">${product.price.toFixed(2)}</span>
+            <div className="glass-panel p-6 md:p-8 rounded-2xl border border-primary/20 bg-primary/5 flex flex-col sm:flex-row items-center justify-between gap-6 md:gap-8 mt-auto">
+              <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
+                <span className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Inversión</span>
+                <span className="text-3xl md:text-4xl font-bold text-primary">${product.price.toFixed(2)}</span>
               </div>
               <button 
                 onClick={() => addToCart(product)}
-                className="w-full md:w-auto bg-primary text-on-primary px-10 py-5 rounded-xl font-bold text-sm uppercase tracking-widest hover:bg-primary-fixed-dim transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-2"
+                className="w-full sm:w-auto bg-primary text-on-primary px-8 md:px-10 py-4 md:py-5 rounded-xl font-bold text-sm uppercase tracking-widest hover:bg-primary-fixed-dim transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-2"
               >
                 <span className="material-symbols-outlined">shopping_cart</span>
                 ADQUIRIR AHORA

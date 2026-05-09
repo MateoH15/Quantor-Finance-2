@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
+// Optimized Market Monitor with Infinite Marquee
 import { Link } from 'react-router-dom';
 
 const CurrencyCard = ({ title, category, value, change, isPositive, type = 'normal', gridSpan = 'md:col-span-4' }) => {
   return (
-    <div className={`glass-panel p-6 rounded-xl relative overflow-hidden ${gridSpan} border border-white/5 shadow-xl hover:bg-white/[0.02] transition-all h-full flex flex-col justify-between`}>
+    <div className={`glass-panel p-6 rounded-xl relative overflow-hidden ${gridSpan} border border-white/5 shadow-xl hover:border-primary/30 hover:translate-y-[-4px] transition-all duration-300 h-full flex flex-col justify-between`}>
       {type === 'highlight' && (
         <div className="absolute top-0 right-0 p-4">
           <span className="material-symbols-outlined text-primary text-3xl opacity-30">monetization_on</span>
@@ -60,7 +61,7 @@ const CurrencyCard = ({ title, category, value, change, isPositive, type = 'norm
 
 const IndicatorCard = ({ title, value, subValue, label, loading }) => {
   return (
-    <div className="glass-panel p-6 rounded-xl border border-white/5 shadow-xl flex flex-col justify-between md:col-span-4 min-h-[160px]">
+    <div className="glass-panel p-6 rounded-xl border border-white/5 shadow-xl flex flex-col justify-between md:col-span-4 min-h-[160px] hover:border-primary/30 hover:translate-y-[-4px] transition-all duration-300">
       <div>
         <p className="font-label-caps text-slate-500 mb-2 text-[10px] font-bold tracking-widest uppercase">{label}</p>
         <h3 className="text-white text-lg font-bold mb-4">{title}</h3>
@@ -79,15 +80,54 @@ const IndicatorCard = ({ title, value, subValue, label, loading }) => {
   );
 };
 
-const StreamingPreviewCard = ({ name, price, color }) => (
-  <div className="glass-panel p-6 rounded-xl border border-white/5 flex flex-col gap-3 md:col-span-3 hover:bg-white/[0.03] transition-colors group cursor-pointer">
-    <div className="flex justify-between items-center">
-       <span className="text-white font-bold group-hover:text-primary transition-colors">{name}</span>
-       <div className="w-2 h-2 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.5)]" style={{ backgroundColor: color, boxShadow: `0 0 10px ${color}` }}></div>
+const streamingPlatforms = [
+  { name: "Netflix", price: "desde $8.999/mes", color: "#E50914" },
+  { name: "Disney+", price: "desde $11.999/mes", color: "#006E99" },
+  { name: "Max", price: "desde $9.090/mes", color: "#991BFA" },
+  { name: "Amazon Prime Video", price: "$7.994/mes", color: "#00A8E1" },
+  { name: "Paramount+", price: "$8.535/mes", color: "#0064FF" },
+  { name: "Apple TV+", price: "$13.286/mes", color: "#FFFFFF" },
+];
+
+const StreamingMarquee = () => {
+  // Triple the items to ensure the marquee is always full and loops seamlessly
+  const marqueeItems = [...streamingPlatforms, ...streamingPlatforms, ...streamingPlatforms];
+
+  return (
+    <div className="relative w-full overflow-hidden py-4">
+      {/* Gradient masks for smooth fade edges */}
+      <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#0F172A] to-transparent z-10 pointer-events-none"></div>
+      <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#0F172A] to-transparent z-10 pointer-events-none"></div>
+
+      <div className="flex w-max animate-marquee hover:[animation-play-state:paused] gap-4 px-4">
+        {marqueeItems.map((p, i) => (
+          <div 
+            key={i} 
+            className="flex-shrink-0 w-48"
+          >
+            <div className="glass-panel p-4 rounded-xl border border-white/5 flex flex-col gap-2 hover:border-primary/30 transition-all duration-300">
+              <div className="flex justify-between items-center">
+                <span className="text-white font-bold text-[10px] uppercase tracking-wider truncate pr-2">{p.name}</span>
+                <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: p.color, boxShadow: `0 0 8px ${p.color}` }}></div>
+              </div>
+              <span className="text-primary font-data-mono text-sm font-bold">{p.price}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(calc(-33.33% - 10.66px)); }
+        }
+        .animate-marquee {
+          animation: marquee 30s linear infinite;
+        }
+      `}} />
     </div>
-    <span className="text-primary font-data-mono text-sm font-bold">{price}</span>
-  </div>
-);
+  );
+};
 
 const CurrencyMonitor = () => {
   const [dolares, setDolares] = useState([]);
@@ -251,12 +291,7 @@ const CurrencyMonitor = () => {
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-        <StreamingPreviewCard name="Netflix" price="desde $1,699" color="#E50914" />
-        <StreamingPreviewCard name="Disney+" price="$799 / mes" color="#006E99" />
-        <StreamingPreviewCard name="HBO Max" price="$699 / mes" color="#991BFA" />
-        <StreamingPreviewCard name="Amazon Prime" price="$599 / mes" color="#00A8E1" />
-      </div>
+      <StreamingMarquee />
     </section>
   );
 };

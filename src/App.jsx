@@ -10,8 +10,10 @@ import EconomicCalendar from './pages/EconomicCalendar';
 import Contact from './pages/Contact';
 import ProductDetail from './pages/ProductDetail';
 import Success from './pages/Success';
+import Terms from './pages/Terms';
 import { CartProvider } from './context/CartContext';
 import CartDrawer from './components/CartDrawer';
+import BackgroundAnimation from './components/BackgroundAnimation';
 import './App.css';
 
 // Component to scroll to top on route change
@@ -29,6 +31,7 @@ function App() {
       <ScrollToTop />
       <CartProvider>
         <div className="app">
+          <BackgroundAnimation />
           <Navbar />
           <CartDrawer />
           <main>
@@ -41,6 +44,7 @@ function App() {
               <Route path="/calendario" element={<EconomicCalendar />} />
               <Route path="/contacto" element={<Contact />} />
               <Route path="/success" element={<Success />} />
+              <Route path="/terminos" element={<Terms />} />
             </Routes>
           </main>
           <Footer />

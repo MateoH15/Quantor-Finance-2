@@ -13,13 +13,13 @@
   --on-secondary: #283044;
   --error: #ffb4ab;
   --success: #10b981;
-  
-  --font-body: 'Inter', sans-serif;
-  --font-display: 'Manrope', sans-serif;
-  
-  --glass-bg: rgba(29, 32, 34, 0.6);
-  --glass-border: rgba(255, 255, 255, 0.05);
-  --glass-blur: 12px;
+
+  --font-body: "Inter", sans-serif;
+  --font-display: "Manrope", sans-serif;
+
+  --glass-bg: rgba(18, 25, 26, 0.5);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-blur: 16px;
 }
 
 * {
@@ -36,7 +36,11 @@ body {
   overflow-x: hidden;
 }
 
-h1, h2, h3, h4, .font-display {
+h1,
+h2,
+h3,
+h4,
+.font-display {
   font-family: var(--font-display);
   font-weight: 700;
 }
@@ -58,10 +62,14 @@ button {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur));
   border: 1px solid var(--glass-border);
+  box-shadow:
+    0 10px 30px -10px rgba(0, 0, 0, 0.5),
+    inset 0 1px 1px rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
 }
 
-.hero-gradient {
-  background: radial-gradient(circle at 50% 50%, rgba(233, 193, 118, 0.08) 0%, rgba(16, 20, 21, 1) 100%);
+section {
+  background-color: transparent !important;
 }
 
 .container {
@@ -76,8 +84,31 @@ button {
 
 /* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tradingview-ticker-wrapper {
+  width: 100%;
+  height: 48px;
+  background: rgba(16, 20, 21, 0.4);
+  backdrop-filter: blur(4px);
+  margin-top: 78px;
+  position: sticky;
+  top: 78px;
+  z-index: 40;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.tradingview-widget-container {
+  width: 100%;
+  height: 100%;
 }
 
 .fade-in {
